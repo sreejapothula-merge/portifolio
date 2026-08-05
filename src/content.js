@@ -35,6 +35,16 @@ export const projects = [
     link: "#",
   },
   {
+    title: "Snowflake → Microsoft Fabric Migration",
+    tag: "Data Analyst Intern · MAF Group",
+    year: "2023–2024",
+    blurb:
+      "Used Snowflake and Power BI to track down dashboard and data-source issues, then led the QA and migration of databases and Dataiku projects from Snowflake to Microsoft Fabric — documenting the process end to end.",
+    stack: ["Snowflake", "Power BI", "Azure Data Factory"],
+    color: "pink",
+    link: "#",
+  },
+  {
     title: "Mortgage & Pawnbroker Web App",
     tag: "Learnathon · KL University",
     year: "2023",
@@ -43,6 +53,27 @@ export const projects = [
     stack: ["Python", "Django", "PostgreSQL"],
     color: "yellow",
     link: "#",
+  },
+];
+
+export const education = [
+  {
+    degree: "B.Tech, Computer Science & Engineering",
+    school: "Koneru Lakshmaiah (KL University), Vijayawada, India",
+    date: "Jun 2024",
+    detail: "Specialization: Software Modelling & DevOps · GPA 8.86",
+  },
+  {
+    degree: "Intermediate Education",
+    school: "Sri Chaitanya Junior College",
+    date: "Apr 2020",
+    detail: "GPA 9.8",
+  },
+  {
+    degree: "Secondary Education",
+    school: "Bhashyam Blooms Global School, Guntur, AP",
+    date: "Mar 2018",
+    detail: "89%",
   },
 ];
 

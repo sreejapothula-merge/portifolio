@@ -302,6 +302,52 @@ section {
   color: var(--ink-dim);
 }
 
+/* ── Education ────────────────────────────────────────────── */
+#education-list {
+  max-width: 760px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.edu-item {
+  padding: 26px 4px;
+  border-top: var(--edge);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 24px;
+  align-items: baseline;
+}
+.edu-item:last-child {
+  border-bottom: var(--edge);
+}
+
+.edu-degree {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+.edu-date {
+  font-family: var(--mono);
+  font-size: 0.8rem;
+  color: var(--ink-dim);
+  white-space: nowrap;
+}
+
+.edu-school {
+  grid-column: 1 / -1;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--teal);
+}
+
+.edu-detail {
+  grid-column: 1 / -1;
+  color: var(--ink-dim);
+  font-size: 0.92rem;
+}
+
 /* ── Skills radial hub ────────────────────────────────────── */
 #skill-hub {
   position: relative;
