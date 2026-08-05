@@ -15,7 +15,7 @@ export const profile = {
 
 export const projects = [
   {
-    title: "Performance Data Explorer (PDQ-NewApp)",
+    title: "Performance Data Explorer (PDE)",
     tag: "R&D · Siemens Energy",
     year: "Jul 2026 – Present",
     blurb:
