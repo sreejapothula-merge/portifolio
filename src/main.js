@@ -11,7 +11,6 @@ document.getElementById("hero-role").textContent = profile.role;
 document.getElementById("hero-tagline").textContent = profile.tagline;
 
 document.getElementById("contact-email").href = `mailto:${profile.email}`;
-document.getElementById("contact-github").href = profile.github;
 document.getElementById("contact-linkedin").href = profile.linkedin;
 
 const accentMap = { coral: "var(--coral)", teal: "var(--teal)", yellow: "var(--yellow)", pink: "var(--pink)" };

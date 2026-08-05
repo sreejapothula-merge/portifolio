@@ -4,57 +4,59 @@
 // ─────────────────────────────────────────────────────────────
 
 export const profile = {
-  name: "Mimi",
-  role: "Software Engineer — Test & Validation",
-  tagline: "I build the tools that make sure gas turbines behave exactly how physics says they should.",
+  name: "Sreeja",
+  role: "Research & Development Software Engineer, Siemens Energy",
+  tagline:
+    "I build secure, scalable software — from customer-facing UIs to backend systems — and I'm now bringing that to R&D at Siemens Energy.",
   location: "Lincoln, UK",
-  email: "you@example.com",
-  github: "https://github.com/your-username",
-  linkedin: "https://linkedin.com/in/your-profile",
+  email: "sreeja.pothula@gmail.com",
+  linkedin: "https://www.linkedin.com/in/sreeja-pothula-830b25220",
 };
 
 export const projects = [
   {
-    title: "Performance Data Explorer",
-    tag: "Desktop · WPF / .NET 8",
+    title: "CSRF Protection for iMonitor",
+    tag: "Security · OpenText",
     year: "2025",
     blurb:
-      "A desktop application built for engineers to analyze and visualize gas turbine engine test data — turning raw rig output into something you can actually reason about.",
-    stack: ["C#", ".NET 8", "WPF", "Git"],
+      "Designed and implemented CSRF protection for iMonitor, evaluating and shipping the double-submit cookie pattern to close token-exposure gaps without breaking existing GET-based workflows.",
+    stack: ["C/C++", "Security", "Fortify"],
     color: "coral",
     link: "#",
   },
   {
-    title: "Your Next Project",
-    tag: "Add a category",
-    year: "2026",
+    title: "iPrintNext",
+    tag: "Full-stack · OpenText",
+    year: "2023–2024",
     blurb:
-      "Swap this card out — describe what it does, why it exists, and the one decision you're proudest of.",
-    stack: ["Tech", "Stack", "Here"],
+      "Built the front-end interface in Angular and TypeScript, unit tested with Jest, and contributed to the backend deployed in Docker and Kubernetes, backed by OrientDB and PostgreSQL.",
+    stack: ["Angular", "TypeScript", "Docker", "Kubernetes"],
     color: "teal",
     link: "#",
   },
   {
-    title: "Another Build",
-    tag: "Add a category",
-    year: "2026",
+    title: "Mortgage & Pawnbroker Web App",
+    tag: "Learnathon · KL University",
+    year: "2023",
     blurb:
-      "A third project slot. Duplicate this object in content.js and fill in the details for anything else you want to showcase.",
-    stack: ["Tech", "Stack", "Here"],
+      "A responsive full-stack Django app for an online pawning and mortgaging system, built in a 3-day skill development learnathon and hosted on an S3 bucket.",
+    stack: ["Python", "Django", "PostgreSQL"],
     color: "yellow",
     link: "#",
   },
 ];
 
 export const skills = [
+  "C",
   "C++",
+  "TypeScript",
+  "Angular",
   "Python",
-  "C#",
-  "WPF / .NET",
-  "Git",
-  "Test Automation",
-  "Data Validation",
+  "Django",
+  "Docker",
+  "Kubernetes",
+  "PostgreSQL",
+  "Jest",
   "SQL",
   "CI/CD",
-  "Signal Processing",
 ];
