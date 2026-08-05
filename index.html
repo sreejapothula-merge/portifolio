@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Portfolio — Software Engineer, Test & Validation" />
+    <title>Mimi — Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="grain"></div>
+
+    <nav id="nav">
+      <span class="nav-mark">M.</span>
+      <div class="nav-links">
+        <a href="#work">work</a>
+        <a href="#about">about</a>
+        <a href="#contact">say hi</a>
+      </div>
+    </nav>
+
+    <main id="app">
+      <!-- HERO -->
+      <section id="hero">
+        <canvas id="hero-canvas"></canvas>
+        <div class="hero-copy">
+          <p class="eyebrow">01 — currently spinning up test rigs</p>
+          <h1 id="hero-name">Hi, I'm <span class="accent-coral">Mimi</span></h1>
+          <p class="hero-role" id="hero-role">Software Engineer — Test &amp; Validation</p>
+          <p class="hero-tagline" id="hero-tagline">
+            I build the tools that make sure gas turbines behave exactly how physics says they should.
+          </p>
+          <a href="#work" class="scroll-cue">
+            <span>see the work</span>
+            <svg width="14" height="20" viewBox="0 0 14 20" fill="none"><path d="M7 1v17M1 12l6 6 6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- WORK -->
+      <section id="work">
+        <div class="section-head">
+          <p class="eyebrow">02 — builds</p>
+          <h2>Things I've shipped</h2>
+        </div>
+        <div id="project-grid"></div>
+      </section>
+
+      <!-- ABOUT / SKILLS -->
+      <section id="about">
+        <div class="section-head">
+          <p class="eyebrow">03 — the toolkit</p>
+          <h2>What's under the hood</h2>
+        </div>
+        <div id="skill-hub">
+          <div id="skill-core">
+            <span>stack</span>
+          </div>
+          <div id="skill-ring"></div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact">
+        <p class="eyebrow">04 — get in touch</p>
+        <h2 id="contact-headline">Let's build something<br /><span class="accent-teal">that actually works.</span></h2>
+        <div class="contact-links">
+          <a id="contact-email" href="#" class="contact-pill pill-coral">email</a>
+          <a id="contact-github" href="#" target="_blank" rel="noopener" class="contact-pill pill-yellow">github</a>
+          <a id="contact-linkedin" href="#" target="_blank" rel="noopener" class="contact-pill pill-pink">linkedin</a>
+        </div>
+        <p class="footer-note">Built with Three.js, tuned by hand, deployed from a repo you can actually read.</p>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
