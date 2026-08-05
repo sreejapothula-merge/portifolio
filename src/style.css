@@ -1,20 +1,20 @@
 /* ── Tokens ────────────────────────────────────────────────── */
 :root {
-  --bg: #14132b;
-  --bg-panel: #1c1a3f;
-  --ink: #f3f1ea;
-  --ink-dim: #a6a2c8;
+  --bg: #f4f3fb;
+  --bg-panel: #ffffff;
+  --ink: #17152e;
+  --ink-dim: #625d80;
 
-  --coral: #ff6b4a;
-  --teal: #2de1c2;
-  --yellow: #ffd23f;
-  --pink: #ff3d8a;
+  --coral: #e0532f;
+  --teal: #0d9683;
+  --yellow: #c98a0a;
+  --pink: #d41a72;
 
   --display: "Bricolage Grotesque", sans-serif;
   --body: "Inter", sans-serif;
   --mono: "JetBrains Mono", monospace;
 
-  --edge: 1px solid rgba(243, 241, 234, 0.12);
+  --edge: 1px solid rgba(23, 21, 46, 0.12);
   --radius: 18px;
 }
 
@@ -77,7 +77,6 @@ a {
   justify-content: space-between;
   align-items: center;
   padding: 28px clamp(20px, 5vw, 64px);
-  mix-blend-mode: difference;
 }
 
 .nav-mark {
@@ -298,7 +297,7 @@ section {
   font-size: 0.72rem;
   padding: 5px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(243, 241, 234, 0.18);
+  border: var(--edge);
   color: var(--ink-dim);
 }
 
@@ -373,6 +372,7 @@ section {
   letter-spacing: 0.05em;
   text-transform: uppercase;
   box-shadow: 0 0 60px rgba(255, 107, 74, 0.35);
+  color: #fff;
 }
 
 #skill-ring {

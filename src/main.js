@@ -85,10 +85,9 @@ skills.forEach((skill, i) => {
 });
 
 /* ─────────────────────────────────────────────────────────────
-   Hero scene — a kinetic sculpture, not an engine: a painted
-   torus knot (color flowing around it like a brush stroke) with
-   small satellite particles orbiting in their own orbits. A nod
-   to art + code rather than turbine hardware.
+   Hero scene — back to the original: a rotating "blade hub",
+   abstract twisted-blade geometry arranged radially, colored with
+   the site's playful accent palette. Drag to spin it around.
 ──────────────────────────────────────────────────────────────*/
 const canvas = document.getElementById("hero-canvas");
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -117,77 +116,66 @@ const lightPink = new THREE.PointLight(0xff3d8a, 10, 20);
 lightPink.position.set(0, -3, -3);
 scene.add(lightPink);
 
-// the sculpture group holds the knot and its orbiting particles
-const sculpture = new THREE.Group();
-scene.add(sculpture);
+// the hub group holds all blades and rotates as a whole — sits
+// offset to the right so it fills the space beside the hero copy
+const hub = new THREE.Group();
+hub.position.x = 2.15;
+scene.add(hub);
 
-const palette = [
-  new THREE.Color(0xff6b4a), // coral
-  new THREE.Color(0x2de1c2), // teal
-  new THREE.Color(0xffd23f), // yellow
-  new THREE.Color(0xff3d8a), // pink
-];
+const bladeColors = [0xff6b4a, 0x2de1c2, 0xffd23f, 0xff3d8a];
+const BLADE_COUNT = 9;
+const blades = [];
 
-// painted torus knot: vertex colors sweep through the palette
-// around the knot so it reads like a single flowing brush stroke
-const knotGeo = new THREE.TorusKnotGeometry(1.3, 0.4, 220, 32, 2, 3);
-const posAttr = knotGeo.attributes.position;
-const vColors = new Float32Array(posAttr.count * 3);
-const v = new THREE.Vector3();
-for (let i = 0; i < posAttr.count; i++) {
-  v.fromBufferAttribute(posAttr, i);
-  const t = (Math.atan2(v.z, v.x) + Math.PI) / (Math.PI * 2); // 0..1 around the knot
-  const scaled = t * palette.length;
-  const a = palette[Math.floor(scaled) % palette.length];
-  const b = palette[(Math.floor(scaled) + 1) % palette.length];
-  const c = a.clone().lerp(b, scaled - Math.floor(scaled));
-  vColors[i * 3] = c.r;
-  vColors[i * 3 + 1] = c.g;
-  vColors[i * 3 + 2] = c.b;
-}
-knotGeo.setAttribute("color", new THREE.BufferAttribute(vColors, 3));
+for (let i = 0; i < BLADE_COUNT; i++) {
+  // a twisted, tapered blade made from a stretched, curved box
+  const geo = new THREE.BoxGeometry(0.34, 2.6, 0.06, 4, 20, 1);
+  const pos = geo.attributes.position;
+  for (let v = 0; v < pos.count; v++) {
+    const y = pos.getY(v);
+    const t = (y + 1.3) / 2.6; // 0 at base .. 1 at tip
+    const twist = t * 1.1;
+    const x0 = pos.getX(v);
+    const z0 = pos.getZ(v);
+    const cosT = Math.cos(twist);
+    const sinT = Math.sin(twist);
+    pos.setX(v, x0 * cosT - z0 * sinT);
+    pos.setZ(v, x0 * sinT + z0 * cosT);
+    // taper the tip slightly
+    pos.setX(v, pos.getX(v) * (1 - t * 0.35));
+  }
+  geo.computeVertexNormals();
 
-const knotMat = new THREE.MeshStandardMaterial({
-  vertexColors: true,
-  roughness: 0.3,
-  metalness: 0.2,
-  emissive: 0xffffff,
-  emissiveIntensity: 0.05,
-});
-const knot = new THREE.Mesh(knotGeo, knotMat);
-sculpture.add(knot);
-
-// satellite particles — small orbiting points of color, each on
-// its own tilted, offset orbit around the knot
-const orbitGroup = new THREE.Group();
-sculpture.add(orbitGroup);
-
-const ORBITER_COUNT = 16;
-const orbiters = [];
-for (let i = 0; i < ORBITER_COUNT; i++) {
-  const color = palette[i % palette.length];
-  const geo = new THREE.IcosahedronGeometry(0.06 + Math.random() * 0.035, 0);
+  const color = bladeColors[i % bladeColors.length];
   const mat = new THREE.MeshStandardMaterial({
     color,
+    roughness: 0.35,
+    metalness: 0.15,
     emissive: color,
-    emissiveIntensity: 0.5,
-    roughness: 0.4,
-    metalness: 0.1,
+    emissiveIntensity: 0.12,
   });
-  const mesh = new THREE.Mesh(geo, mat);
-  const orbiter = {
-    mesh,
-    radius: 2.15 + Math.random() * 0.7,
-    speed: 0.14 + Math.random() * 0.22,
-    phase: Math.random() * Math.PI * 2,
-    tilt: (Math.random() - 0.5) * 2.4,
-  };
-  orbiters.push(orbiter);
-  orbitGroup.add(mesh);
+
+  const blade = new THREE.Mesh(geo, mat);
+  const angle = (i / BLADE_COUNT) * Math.PI * 2;
+  blade.position.set(Math.cos(angle) * 1.15, 0, Math.sin(angle) * 1.15);
+  blade.rotation.y = -angle + Math.PI / 2;
+  blade.rotation.z = 0.18;
+  hub.add(blade);
+  blades.push(blade);
 }
 
-sculpture.rotation.x = 0.3;
-sculpture.scale.setScalar(0.001); // start collapsed for entrance animation
+// central hub sphere
+const coreGeo = new THREE.IcosahedronGeometry(0.85, 2);
+const coreMat = new THREE.MeshStandardMaterial({
+  color: 0x1c1a3f,
+  roughness: 0.2,
+  metalness: 0.4,
+  emissive: 0xff3d8a,
+  emissiveIntensity: 0.08,
+});
+const core = new THREE.Mesh(coreGeo, coreMat);
+hub.add(core);
+
+hub.scale.setScalar(0.001); // start collapsed for entrance animation
 
 // entrance animation
 let entranceStart = null;
@@ -195,26 +183,44 @@ function animateEntrance(ts) {
   if (entranceStart === null) entranceStart = ts;
   const t = Math.min((ts - entranceStart) / 1200, 1);
   const eased = 1 - Math.pow(1 - t, 3);
-  sculpture.scale.setScalar(0.001 + eased * 0.999);
-  sculpture.rotation.y = -Math.PI * 0.6 * (1 - eased);
+  hub.scale.setScalar(0.001 + eased * 0.999);
   if (t < 1) requestAnimationFrame(animateEntrance);
 }
 requestAnimationFrame(animateEntrance);
 
-// mouse parallax
-let mouseX = 0;
-let mouseY = 0;
+// drag to turn the hub; drifts with a gentle idle spin otherwise
+let dragging = false;
+let lastPointerX = 0;
+let lastPointerY = 0;
 let targetRotY = 0;
 let targetRotX = 0.3;
+hub.rotation.x = targetRotX;
 
+canvas.style.cursor = "grab";
+canvas.addEventListener("pointerdown", (e) => {
+  dragging = true;
+  lastPointerX = e.clientX;
+  lastPointerY = e.clientY;
+  canvas.style.cursor = "grabbing";
+  canvas.setPointerCapture(e.pointerId);
+});
 window.addEventListener("pointermove", (e) => {
-  mouseX = (e.clientX / window.innerWidth) * 2 - 1;
-  mouseY = (e.clientY / window.innerHeight) * 2 - 1;
-  targetRotY = mouseX * 0.35;
-  targetRotX = 0.3 + mouseY * 0.15;
+  if (!dragging) return;
+  targetRotY += (e.clientX - lastPointerX) * 0.008;
+  targetRotX = Math.max(-0.5, Math.min(0.5, targetRotX + (e.clientY - lastPointerY) * 0.006));
+  lastPointerX = e.clientX;
+  lastPointerY = e.clientY;
+});
+window.addEventListener("pointerup", () => {
+  dragging = false;
+  canvas.style.cursor = "grab";
+});
+window.addEventListener("pointercancel", () => {
+  dragging = false;
+  canvas.style.cursor = "grab";
 });
 
-// scroll-driven drift so the sculpture still feels alive while reading
+// scroll-driven drift so the hub still feels alive while reading
 let scrollT = 0;
 window.addEventListener(
   "scroll",
@@ -239,23 +245,18 @@ function tick() {
   const dt = clock.getDelta();
   const elapsed = clock.getElapsedTime();
 
-  if (!prefersReducedMotion) {
-    sculpture.rotation.z += dt * 0.09; // slow tumble, like a mobile turning in still air
-    knot.rotation.x += dt * 0.05;
-    sculpture.rotation.y += (targetRotY - sculpture.rotation.y) * 0.04;
-    sculpture.rotation.x += (targetRotX - sculpture.rotation.x) * 0.04;
-
-    orbiters.forEach((o) => {
-      const a = elapsed * o.speed + o.phase;
-      o.mesh.position.set(Math.cos(a) * o.radius, Math.sin(a * 0.6) * o.tilt, Math.sin(a) * o.radius);
-    });
+  if (!dragging && !prefersReducedMotion) {
+    hub.rotation.z += dt * 0.18; // continuous idle spin, like a turbine at low idle
   }
+  hub.rotation.y += (targetRotY - hub.rotation.y) * 0.15;
+  hub.rotation.x += (targetRotX - hub.rotation.x) * 0.15;
 
-  sculpture.position.y = -scrollT * 1.4;
-  sculpture.position.z = -scrollT * 2.2;
-  camera.position.x = Math.sin(elapsed * 0.05) * 0.15;
+  hub.position.y = -scrollT * 1.4;
+  hub.position.z = -scrollT * 2.2;
 
-  knotMat.emissiveIntensity = 0.05 + Math.sin(elapsed * 1.1) * 0.03;
+  blades.forEach((b, i) => {
+    b.material.emissiveIntensity = 0.1 + Math.sin(elapsed * 1.4 + i) * 0.05;
+  });
 
   renderer.render(scene, camera);
   requestAnimationFrame(tick);
