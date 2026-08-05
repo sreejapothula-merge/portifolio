@@ -15,6 +15,16 @@ export const profile = {
 
 export const projects = [
   {
+    title: "Performance Data Explorer (PDQ-NewApp)",
+    tag: "R&D · Siemens Energy",
+    year: "Jul 2026 – Present",
+    blurb:
+      "A WPF/.NET 8 desktop app for exploring engine performance data — analysts pick an engine type, core, and build, then plot parameters across date ranges with synced zoom, crosshairs, and an inspection line on ScottPlot charts, alongside event log review, scan-point overlays, and data export.",
+    stack: ["C#", ".NET 8", "WPF", "ScottPlot"],
+    color: "pink",
+    link: "#",
+  },
+  {
     title: "CSRF Protection for iMonitor",
     tag: "Security · OpenText",
     year: "2025",
